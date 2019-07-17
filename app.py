@@ -3,8 +3,8 @@ import json
 import os
 
 async def handle(request):
-    tag = os.environ['TAG']
-    response_obj = {'status': 'success', 'tag': tag}
+    IMAGE_TAG = os.environ['IMAGE_TAG']
+    response_obj = {'status': 'success', 'image_tag': IMAGE_TAG}
     return web.Response(text=json.dumps(response_obj))
 
 

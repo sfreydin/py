@@ -1,6 +1,6 @@
 FROM python:alpine3.7
-ARG TAG
-ENV TAG=${TAG}
+ARG IMAGE_TAG
+ENV IMAGE_TAG=${IMAGE_TAG}
 COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
