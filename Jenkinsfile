@@ -35,7 +35,9 @@ pipeline {
                             sh "env"
                             docker.withRegistry('https://' + env.REGISTRY, env.REGISTRY_CRED) {
                                 def DockerImagePy = docker.build("${REGISTRY}:${IMAGE_TAG}", "-f Dockerfile .")
+                                def DockerImagePyLatest = docker.build("${REGISTRY}:latest", "-f Dockerfile .")
                                 DockerImagePy.push()
+                                DockerImagePyLatest.push()
                             }
                         }
                     }
