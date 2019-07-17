@@ -10,10 +10,10 @@ pipeline {
         REPO_CRED=sh returnStdout: true, script: 'echo -n "${REPO_CRED=repo-cred-id}"'
     }
     agent any
-    options {
-        timestamps()
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-    }
+//    options {
+//        timestamps()
+//        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+//    }
 //    parameters {
 //        gitParameter branchFilter: 'origin.*/(.*)', defaultValue: 'master', name: 'BRANCH_PY', type: 'PT_BRANCH', useRepository: env.GIT_CODE
 //    }
