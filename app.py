@@ -1,9 +1,10 @@
 from aiohttp import web
 import json
-
+import os
 
 async def handle(request):
-    response_obj = {'status': 'success'}
+    tag = os.environ['TAG']
+    response_obj = {'status': 'success', 'tag': tag}
     return web.Response(text=json.dumps(response_obj))
 
 
