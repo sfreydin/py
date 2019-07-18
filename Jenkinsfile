@@ -49,9 +49,14 @@ pipeline {
                         script {
                             sh """
                                  helm init --client-only
-                                 helm package helm/py
+                                 helm package py
                                  s3cmd put py-0.1.0.tgz s3://helm-repo-kc/py-0.1.0.tgz
-                            """
+                                 cat <<EOF > values/dev.yaml
+                                 image:
+                                   tag: ${env.IMAGE_TAG}
+                                 EOF
+                                 s3cmd put values/dev.yaml s3://helm-repo-kc/dev.yaml
+                            """.stripIndent()
 
                         }
                     }
