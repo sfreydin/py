@@ -48,6 +48,7 @@ pipeline {
                     steps {
                         script {
                             sh """
+                                 helm init --client-only
                                  helm package helm/py
                                  s3cmd put py-0.1.0.tgz s3://helm-repo-kc/py-0.1.0.tgz
                             """
