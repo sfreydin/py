@@ -8,6 +8,7 @@ pipeline {
         RELEASE_NAME=sh returnStdout: true, script: 'echo -n "${RELEASE_NAME=v0.1}"'
         REGISTRY_CRED=sh returnStdout: true, script: 'echo -n "${REGISTRY_CRED=hub_id}"'
         REPO_CRED=sh returnStdout: true, script: 'echo -n "${REPO_CRED=repo-cred-id}"'
+
     }
     agent any
 //    options {
@@ -29,7 +30,7 @@ pipeline {
         }
         stage('BUILD') {
             parallel {
-                stage('build and push py') {
+                stage('build and push docker') {
                     steps {
                         script {
                             sh "env"
@@ -39,6 +40,18 @@ pipeline {
                                 DockerImagePy.push()
                                 DockerImagePyLatest.push()
                             }
+                        }
+                    }
+                }
+
+                stage('build and push helm') {
+                    steps {
+                        script {
+                            sh """
+                                 helm package helm/py
+                                 s3cmd put py-0.1.0.tgz s3://helm-repo-kc/py-0.1.0.tgz
+                            """
+
                         }
                     }
                 }
