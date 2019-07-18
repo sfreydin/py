@@ -43,7 +43,7 @@ pipeline {
                         }
                     }
                 }
-
+// use IMAGE_TAG to run correct version of app on stage and dev environments
                 stage('build and push helm') {
                     steps {
                         script {
@@ -56,6 +56,11 @@ pipeline {
                                    tag: ${env.IMAGE_TAG}
                                  EOF
                                  s3cmd put values/dev.yaml s3://helm-repo-kc/dev.yaml
+                                 cat <<EOF > values/prod.yaml
+                                 image:
+                                   tag: ${env.IMAGE_TAG}
+                                 EOF
+                                 s3cmd put values/dev.yaml s3://helm-repo-kc/prod.yaml
                             """.stripIndent()
 
                         }
