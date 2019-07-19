@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "py.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
 {{ include "py.labels" . | indent 4 }}
 spec:
